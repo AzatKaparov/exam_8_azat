@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Пользователь{% endblock %}
+
+{% block menu %}
+    {% if request.user == user_obj %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'accounts:change' user_obj.pk %}">Редактировать</a>
+    </li>
+
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url "accounts:password_change" user_obj.pk %}">Смена пароля</a>
+    </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <h2 id="center" class="my-4">Личная страница пользователя<br/> {{ user_obj.get_full_name|default:user_obj.username }}</h2>
+    <div class="person">
+    {% if user_obj.profile.avatar %}
+        <img class="avatar mb-4" src="{{ user_obj.profile.avatar.url }}" width="250" height="250" alt="user picture">
+    {% endif %}
+    <div class="person-text">
+    <h4 class="mb-2">Имя пользователя: <span id="link" class="">{{ user_obj.username }}</span></h4>
+    {% if user_obj.first_name %}
+        <h4>Имя: <span id="link" class="">{{ user_obj.first_name }}</span></h4>
+    {% endif %}
+    {% if user_obj.last_name %}
+        <h4>Фамилия: <span id="link" class="">{{ user_obj.last_name }}</span></h4>
+    {% endif %}
+    {% if user_obj.profile.github %}
+    <h4>Профиль на GitHub: <a id="link" href="{{ user_obj.profile.github }}">{{ user_obj.profile.github }}</a></h4>
+    {% endif %}
+    {% if user_obj.profile.more %}
+    <h4>О себе: <span id="link" class="">{{ user_obj.profile.more }}</span></h4>
+    {% endif %}
+    </div>
+    </div>
+    <h2 class="text-center clear">Проекты пользователя:</h2>
+    {% include 'partial/article_list.html' with projects=user_obj.projects.all %}
+{% endblock %}

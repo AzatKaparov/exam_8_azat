@@ -1,0 +1,37 @@
+{% if is_paginated %}
+    {% include 'partial/pagination.html' %}
+{% endif %}
+
+<div class="row">
+{% for project in projects %}
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="card my-4" style="width: 18rem">
+            <div class="card-body">
+                <h3><a href="{% url "webapp:project_view" project.pk %}">{{ project.name }}</a></h3>
+                <p>
+                    <label for="selected_articles-{{ project.pk }}">Select:</label>
+                    <input type="checkbox" name="selected_articles"
+                           id="selected_articles-{{ project.pk }}" value="{{ project.pk }}">
+                </p>
+                <p>
+                    {% for i in project.user.all %}
+                        <a class="users" href="{% url 'accounts:detail' i.pk %}">{{ i.username }}</a>
+                    {% endfor %}
+                </p>
+                {% if perms.webapp.change_project or project.user == request.user %}
+                    <p><a href="{% url 'webapp:project_update' project.pk %}">Обновить</a></p>
+                {% endif %}
+                {% if perms.webapp.delete_project or project.user == request.user %}
+                    <p><a href="{% url 'webapp:project_delete' project.pk %}">Удалить</a></p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% empty %}
+    <h2 class="text-center">Нет проектов</h2>
+{% endfor %}
+<div>
+
+{% if is_paginated %}
+     {% include 'partial/pagination.html' %}
+{% endif %}

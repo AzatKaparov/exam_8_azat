@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Список пользователей{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+    {% for user in users %}
+        <div class="card mx-4 my-5" style="width: 18rem;">
+        {% if user.profile.avatar %}
+        <img class="avatar" src="{{ user.profile.avatar.url }}" width="250" height="250" alt="user picture">
+        {% endif %}
+          <div class="card-body">
+            <h3 class="card-title">{{ user.username }}</h3>
+            <a href="{% url 'accounts:detail' user.pk %}" class="btn btn-lg btn-primary">Подробнее</a>
+          </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}
+
