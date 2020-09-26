@@ -60,7 +60,7 @@ class RegisterView(CreateView):
         return next_url
 
 
-class UserDetailView(LoginRequiredMixin, DetailView):
+class UserDetailView(DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
@@ -69,6 +69,7 @@ class UserDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(object_list=object_list, **kwargs)
         if self.request.user.is_authenticated:
             context['reviews'] = Review.objects.filter(author=self.request.user)
+        context['someone_reviews'] = Review.objects.filter(author=self.kwargs.get('pk'))
         return context
 
 

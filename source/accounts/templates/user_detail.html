@@ -56,5 +56,24 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+        {% for review in someone_reviews %}
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="review-2 p-3 my-2">
+                        <h6>Автор: {{ review.author }} <br/>
+                        Оценка: {{ review.mark }} <br/>
+                        {% if review.author.email %}
+                        Email: {{ review.author.email }} <br/>
+                        {% else %}
+                        Email отсутсвует<br/>
+                        {% endif %}
+                        Товар: {{ review.product.name }}<br/></h6>
+                        <p class="review-text pre">{{ review.text }}</p>
+                        <a href="{% url 'webapp:update_review' review.pk %}">Редактировать</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
     {% endif %}
 {% endblock %}

@@ -88,5 +88,75 @@
     "text": "\u0422\u0443\u043f\u044b\u0435 \u043d\u043f\u0441",
     "mark": 3
   }
+},
+{
+  "model": "webapp.review",
+  "pk": 11,
+  "fields": {
+    "author": 1,
+    "product": 16,
+    "text": "sdgasdgsdfsdfsda",
+    "mark": 4
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 12,
+  "fields": {
+    "author": 1,
+    "product": 16,
+    "text": "uagbaw9hawioejf0932",
+    "mark": 2
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 13,
+  "fields": {
+    "author": 1,
+    "product": 16,
+    "text": "fsdagawbrdsvasrf",
+    "mark": 5
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 14,
+  "fields": {
+    "author": 1,
+    "product": 15,
+    "text": "BWEBWEFwefeWQFWE",
+    "mark": 2
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 15,
+  "fields": {
+    "author": 1,
+    "product": 15,
+    "text": "qewrttyuiuloi;lhkgfcs",
+    "mark": 4
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 16,
+  "fields": {
+    "author": 1,
+    "product": 15,
+    "text": "qrewarethyjgvjmcfdzsgdAD",
+    "mark": 3
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 17,
+  "fields": {
+    "author": 1,
+    "product": 13,
+    "text": "etZRXTNKBJVHGFCZVCS",
+    "mark": 5
+  }
 }
 ]

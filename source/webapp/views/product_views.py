@@ -13,7 +13,7 @@ class ProductIndexView(ListView):
     template_name = 'product/product_index.html'
     context_object_name = 'products'
     model = Product
-    ordering = ['category', 'name']
+    ordering = ['name']
     paginate_by = 6
     queryset = Product.objects.all()
 
