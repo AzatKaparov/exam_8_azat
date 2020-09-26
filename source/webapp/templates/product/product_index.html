@@ -18,13 +18,10 @@
             <div class="card-body">
                 <h5 class="card-title">{{ product.name }}</h5>
                 <i><h6 class="card-category">{{ product.get_category_display }}</h6></i>
-                {% if perms.webapp.delete_product %}
                     <a href="{% url 'webapp:product_delete' product.pk %}" class="card-icons">Удалить</a>
-                {% endif %}
-                {% if perms.webapp.change_product %}
                     <a href="{% url 'webapp:product_update' product.pk %}" class="card-icons">Обновить</a>
-                {% endif %}
                 <a href="{% url 'webapp:product_view' product.pk %}">Подробнее</a> </h5>
+                <a href="{% url 'webapp:add_review' product.pk %}">Добавить отзыв</a>
             </div>
         </div>
     </div>

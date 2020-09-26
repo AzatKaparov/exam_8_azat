@@ -18,7 +18,7 @@
 
 
 {% block content %}
-    <div class="card my-4" style="width: 18rem">
+    <div class="left-card card my-4" style="width: 18rem">
         {% if not product.image %}
             <img class="photo" src="{% static 'img/default.png' %}">
         {% else %}
@@ -37,4 +37,21 @@
                 <p class="pre">{{  product.description }}</p>
             </div>
     </div>
+
+    <h2 class="mt-4">Оценки товара</h2>
+    <h2 >Средняя оценка: {{ avg }}</h2>
+    <h5 class="mb-4"><a href="{% url 'webapp:add_review' product.pk %}">Добавить отзыв</a></h5>
+    {% for review in reviews %}
+    <div class="review p-3 my-2">
+        <h6 class="">Автор: {{ review.author }} <br/>
+        Оценка: {{ review.mark }} <br/>
+        {% if review.author.email %}
+        Email: {{ review.author.email }} <br/>
+        {% else %}
+        Email отсутсвует<br/>
+        {% endif %}</h6>
+        <p class="review-text pre">{{ review.text }}</p>
+    <a href="{% url 'webapp:update_review' review.pk %}">Редактировать</a>
+    </div>
+    {% endfor %}
 {% endblock %}

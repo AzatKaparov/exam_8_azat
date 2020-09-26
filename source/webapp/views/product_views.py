@@ -2,15 +2,13 @@ from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMix
 from django.urls import reverse
 from django.db.models import Q
 from django.urls import reverse_lazy
-from django.contrib.sessions.models import Session
-
 from webapp.forms import SimpleSearchForm, ProductForm
-from webapp.models import Product
+from webapp.models import Product, Review
 from django.utils.http import urlencode
 from django.views.generic import ListView, DetailView, DeleteView, UpdateView, CreateView
 
 
-class ProductIndexView(LoginRequiredMixin ,ListView):
+class ProductIndexView(ListView):
     template_name = 'product/product_index.html'
     context_object_name = 'products'
     model = Product
@@ -50,34 +48,45 @@ class ProductView(DetailView):
     template_name = 'product/product_view.html'
     model = Product
 
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['reviews'] = Review.objects.filter(product=self.object)
+        all = Review.objects.filter(product=self.object)
+        if all:
+            sum = 0
+            for i in Review.objects.filter(product=self.object):
+                sum += i.mark
+            avg = sum / len(Review.objects.filter(product=self.object))
+            context['avg'] = f'{avg:.2}'
+        else:
+            context['avg'] = 0
+        return context
 
-class ProductCreateView(PermissionRequiredMixin, CreateView):
+
+class ProductCreateView(CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'product/product_create.html'
-    permission_required = 'webapp.add_product'
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
 
-class ProductUpdateView(PermissionRequiredMixin, UpdateView):
+class ProductUpdateView(UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'product/product_update.html'
     context_object_name = 'product'
-    permission_required = 'webapp.change_product'
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
 
-class ProductDeleteView(PermissionRequiredMixin, DeleteView):
+class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'product/product_delete.html'
-    permission_required = 'webapp.delete_product'
 
     def get_success_url(self):
-        return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
+        return reverse_lazy('webapp:product_view', kwargs={'pk': self.object.pk})
 
 
