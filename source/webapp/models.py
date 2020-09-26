@@ -29,6 +29,13 @@ class Product(models.Model):
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Описание')
     image = models.ImageField(null=True, blank=True, upload_to='user_pics', verbose_name='Картинка')
 
+    class Meta:
+        verbose_name_plural = 'Товары'
+        verbose_name = 'Товар'
+
+    def __str__(self):
+        return f'{self.name} - {self.category}'
+
 
 class Review(models.Model):
     author = models.ForeignKey('accounts.Profile', related_name='author_profile', on_delete=models.CASCADE,
@@ -36,7 +43,14 @@ class Review(models.Model):
     product = models.ForeignKey('webapp.Product', related_name='product_review', on_delete=models.CASCADE,
                                 verbose_name='Товар')
     text = models.TextField(max_length=2000, null=False, blank=False, verbose_name='Текст')
-    mark = models.IntegerField(choices=)
+    mark = models.IntegerField(choices=MARK_CHOICES, null=False, blank=False, verbose_name='Оценка')
+
+    class Meta:
+        verbose_name_plural = 'Оценки'
+        verbose_name = 'Оценка'
+
+    def __str__(self):
+        return f'{self.author} - {self.product.name} - {self.mark}'
 
 
 
