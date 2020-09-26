@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.urls import reverse
 from django.views.generic import CreateView, DetailView, UpdateView
+
+from webapp.models import Review
 from .forms import MyUserCreationForm, UserChangeForm, ProfileChangeForm, PasswordChangeForm
 
 
@@ -62,6 +64,11 @@ class UserDetailView(LoginRequiredMixin, DetailView):
     model = get_user_model()
     template_name = 'user_detail.html'
     context_object_name = 'user_obj'
+
+    def get_context_data(self, object_list=None, **kwargs):
+        context = super().get_context_data(object_list=object_list, **kwargs)
+        context['reviews'] = Review.objects.filter(author=self.request.user)
+        return context
 
 
 class UserChangeView(UserPassesTestMixin, UpdateView):

@@ -21,21 +21,40 @@
         <img class="avatar mb-4" src="{{ user_obj.profile.avatar.url }}" width="250" height="250" alt="user picture">
     {% endif %}
     <div class="person-text">
-    <h4 class="mb-2">Имя пользователя: <span id="link" class="">{{ user_obj.username }}</span></h4>
+    <h4 class="mb-2">Логин: <span id="link" class="">{{ user_obj.username }}</span></h4>
     {% if user_obj.first_name %}
         <h4>Имя: <span id="link" class="">{{ user_obj.first_name }}</span></h4>
     {% endif %}
     {% if user_obj.last_name %}
         <h4>Фамилия: <span id="link" class="">{{ user_obj.last_name }}</span></h4>
     {% endif %}
-    {% if user_obj.profile.github %}
-    <h4>Профиль на GitHub: <a id="link" href="{{ user_obj.profile.github }}">{{ user_obj.profile.github }}</a></h4>
+    {% if user_obj.email %}
+        <h4>Email: {{ user_obj.email }}</h4>
     {% endif %}
     {% if user_obj.profile.more %}
     <h4>О себе: <span id="link" class="">{{ user_obj.profile.more }}</span></h4>
     {% endif %}
     </div>
     </div>
-    <h2 class="text-center clear">Проекты пользователя:</h2>
-    {% include 'partial/article_list.html' with projects=user_obj.projects.all %}
+    <h2 class="text-center clear">Отзывы пользователя:</h2>
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                    <div class="review-2 p-3 my-2">
+                        <h6>Автор: {{ review.author }} <br/>
+                        Оценка: {{ review.mark }} <br/>
+                        {% if review.author.email %}
+                        Email: {{ review.author.email }} <br/>
+                        {% else %}
+                        Email отсутсвует<br/>
+                        {% endif %}
+                        Товар: {{ review.product.name }}<br/></h6>
+                        <p class="review-text pre">{{ review.text }}</p>
+                        <a href="{% url 'webapp:update_review' review.pk %}">Редактировать</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

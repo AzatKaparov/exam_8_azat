@@ -43,7 +43,7 @@
     <h5 class="mb-4"><a href="{% url 'webapp:add_review' product.pk %}">Добавить отзыв</a></h5>
     {% for review in reviews %}
     <div class="review p-3 my-2">
-        <h6 class="">Автор: {{ review.author }} <br/>
+        <h6 class="">Автор: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review.author }}</a> <br/>
         Оценка: {{ review.mark }} <br/>
         {% if review.author.email %}
         Email: {{ review.author.email }} <br/>
