@@ -1,0 +1,92 @@
+[
+{
+  "model": "webapp.product",
+  "pk": 11,
+  "fields": {
+    "name": "Spider Man PS4",
+    "category": "toys",
+    "description": "\u0418\u0433\u0440\u0430 \u0434\u043b\u044f \u043f\u04414\r\n- \u041e\u0442\u043a\u0440\u044b\u0442\u044b\u0439 \u043c\u0438\u0440\r\n- \u0412\u0435\u043b\u0438\u043a\u043e\u043b\u0435\u043f\u043d\u0430\u044f \u0431\u043e\u0451\u0432\u043a\u0430\r\n- \u0418\u043d\u0442\u0435\u0440\u0435\u0441\u043d\u044b\u0439 \u0441\u044e\u0436\u0435\u0442",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 12,
+  "fields": {
+    "name": "The Last of us 2",
+    "category": "toys",
+    "description": "asdasdasdasdasdasd",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 13,
+  "fields": {
+    "name": "Sekiro",
+    "category": "other",
+    "description": "WEBLKVARNSFLA\r\nFLKANVJFNDF'BNA'F\r\nDSLAKFMDSLAMFKLSDAMF",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 14,
+  "fields": {
+    "name": "Splinter Cell",
+    "category": "other",
+    "description": "jkNQEBVJSNVJNdVNJKSZFvlksdfmv\r\nsdfmvlkmsfdzvmkdsf\r\nvmasflkvmdfvdfz",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 15,
+  "fields": {
+    "name": "NSUNS3",
+    "category": "other",
+    "description": "asvweavjarnvlj\r\nsdlknvsdNVKNDSAVJNSAKJ\r\nASFLKDSANLKFMLKMfkmds\r\nafmasdlkfmsdalkfmsadlkf",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 16,
+  "fields": {
+    "name": "MGS:5",
+    "category": "other",
+    "description": "aerkjgehar\r\nargnvdafj\r\nasjdflkjkd\r\nsadflskdjNVSA\r\nDVNSDAKLNSBAD",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.product",
+  "pk": 17,
+  "fields": {
+    "name": "Assasin's Creed 4",
+    "category": "other",
+    "description": "wajkfnwkrajfnajsdnf\r\nsdflkadsmflksdaf\r\nmsdalkfmsdke\r\nQMVLEWKMfowejaoijt23-jfesfasdf\r\nsdaf0239fjiaowesmdnalws",
+    "image": ""
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 9,
+  "fields": {
+    "author": 1,
+    "product": 11,
+    "text": "\u041a\u043b\u0430\u0441\u0441\u043d\u0430\u044f \u0438\u0433\u0440\u0430)",
+    "mark": 5
+  }
+},
+{
+  "model": "webapp.review",
+  "pk": 10,
+  "fields": {
+    "author": 3,
+    "product": 11,
+    "text": "\u0422\u0443\u043f\u044b\u0435 \u043d\u043f\u0441",
+    "mark": 3
+  }
+}
+]
