@@ -22,53 +22,43 @@
   </button>
 {% endif %}
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'webapp:project_index' %}">На главную <span class="sr-only">(current)</span></a>
-      </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'webapp:index' %}">Список всех задач</a>
-      </li>
-    {% if perms.auth.view_user %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'accounts:list' %}">Список пользователей</a>
-    </li>
-    {% endif %}
-    {% if user.is_authenticated %}
-        {% if perms.webapp.add_project %}
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{% url 'webapp:project_create'%}">Добавить проект</a>
+                <a class="nav-link" href="{% url 'webapp:index' %}">На главную <span class="sr-only">(current)</span></a>
+            </li>
+        {% if user.is_authenticated %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'webapp:product_create'%}">Добавить товар</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:logout'%}?next={{ request.get_full_path }}">Выход</a>
+            </li>
+            {% else %}
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:login'%}?next={{ request.get_full_path }}">Вход</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{% url 'accounts:create'%}?next={{ request.get_full_path }}">Зарегестрироваться</a>
             </li>
         {% endif %}
-    <li class="nav-item active">
-        <a class="nav-link" href="{% url 'accounts:logout'%}?next={{ request.get_full_path }}">Выход</a>
-      </li>
-    {% else %}
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:login'%}?next={{ request.get_full_path }}">Вход</a>
-        </li>
-        <li class="nav-item active">
-            <a class="nav-link" href="{% url 'accounts:create'%}?next={{ request.get_full_path }}">Зарегестрироваться</a>
-        </li>
-    {% endif %}
-        {% block menu %}{% endblock %}
+    {% block menu %}{% endblock %}
     </ul>
 
-  {% if user.is_authenticated %}
-<form class="text-center" action="" method="GET">
-    <label class="mx-2" id="label-search" for="{{ form.search.id_for_label }}">{{ form.search.label }}:</label>
-    {{ form.search }}
-    <input type="submit" value="Искать">
-    {% for error in form.search.errors %}
-        <p class="form-error">{{ error }}</p>
-    {% endfor %}
-</form>
-  {% endif %}
-  </div>
+    {% if user.is_authenticated %}
+        <form class="text-center" action="" method="GET">
+            <label class="mx-2" id="label-search" for="{{ form.search.id_for_label }}">{{ form.search.label }}:</label>
+            {{ form.search }}
+            <input type="submit" value="Искать">
+            {% for error in form.search.errors %}
+            <p class="form-error">{{ error }}</p>
+            {% endfor %}
+        </form>
+    {% endif %}
+    </div>
 </nav>
 <div class="container">
-    {% block content %}{% endblock %}
+{% block content %}{% endblock %}
 </div>
 
 

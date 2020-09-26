@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}Main{% endblock %}
+
+{% block content %}
+    {% include "partial/messages.html" %}
+    <h1 id="main-center" class="">Список товаров</h1>
+    {% include 'partial/pagination.html' %}
+<div class="row">
+    {% for product in products %}
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="card my-4" style="width: 18rem">
+        {% if not product.image %}
+            <img class="photo" src="{% static 'img/default.png' %}">
+        {% else %}
+            <img class="photo" src="{{ product.image.url }}">
+        {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <i><h6 class="card-category">{{ product.get_category_display }}</h6></i>
+                {% if perms.webapp.delete_product %}
+                    <a href="{% url 'webapp:product_delete' product.pk %}" class="card-icons">Удалить</a>
+                {% endif %}
+                {% if perms.webapp.change_product %}
+                    <a href="{% url 'webapp:product_update' product.pk %}" class="card-icons">Обновить</a>
+                {% endif %}
+                <a href="{% url 'webapp:product_view' product.pk %}">Подробнее</a> </h5>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

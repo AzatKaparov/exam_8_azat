@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}Delete{% endblock %}
+
+{% block menu %}
+    <li class="nav-item active">
+        <a class="nav-link" href="{% url 'webapp:product_view' product.pk %}">Отмена</a>
+    </li>
+{% endblock %}
+
+{% block content %}
+    <h1 id="main-center">Вы уверены, что хотите удалить запись?</h1>
+    <div class="card my-4" style="width: 18rem">
+        {% if not product.image %}
+            <img class="photo" src="{% static 'img/default.png' %}">
+        {% else %}
+            <img class="photo" src="{{ product.image.url }}">
+        {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <i><h6 class="card-category">{{ product.get_category_display }}</h6></i>
+                <hr/>
+                <p class="pre">{{  product.description }}</p>
+            </div>
+    </div>
+    <form action="{% url "webapp:product_delete" product.pk %}" method="post">
+        {% csrf_token %}
+        <p><input type="submit" value="Да" id="submit" class="btn btn-warning mt-5 ml-5 btn-lg"></p>
+        <p><a class="btn btn-info ml-5 btn-lg" href="{% url 'webapp:product_view' product.pk %}">Нет</a></p>
+    </form>
+{% endblock %}

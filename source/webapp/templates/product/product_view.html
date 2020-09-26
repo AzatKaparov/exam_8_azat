@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}View{% endblock %}
+
+
+{% block menu %}
+{#    {% if perms.webapp.delete_product %}#}
+{#    <li class="nav-item active">#}
+{#        <a class="nav-link" href="{% url 'webapp:delete' product.pk %}">Удалить</a>#}
+{#    </li>#}
+{#    {% endif %}#}
+{#    {% if perms.webapp.change_product %}#}
+{#    <li class="nav-item active">#}
+{#        <a class="nav-link" href="{% url 'webapp:update' product.pk %}">Обновить</a>#}
+{#    </li>#}
+{#    {% endif %}#}
+{% endblock %}
+
+
+{% block content %}
+    <div class="card my-4" style="width: 18rem">
+        {% if not product.image %}
+            <img class="photo" src="{% static 'img/default.png' %}">
+        {% else %}
+            <img class="photo" src="{{ product.image.url }}">
+        {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                {% if perms.webapp.delete_product %}
+                    <a href="{% url 'webapp:product_delete' product.pk %}" class="card-icons">Удалить</a>
+                {% endif %}
+                {% if perms.webapp.change_product %}
+                    <a href="{% url 'webapp:product_update' product.pk %}" class="card-icons">Обновить</a>
+                {% endif %}
+                <i><h6 class="card-category">{{ product.get_category_display }}</h6></i>
+                <hr/>
+                <p class="pre">{{  product.description }}</p>
+            </div>
+    </div>
+{% endblock %}
