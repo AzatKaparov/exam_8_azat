@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.shortcuts import redirect
 from django.urls import reverse
 from django.db.models import Q
 from django.urls import reverse_lazy
@@ -63,30 +64,43 @@ class ProductView(DetailView):
         return context
 
 
-class ProductCreateView(CreateView):
+class ProductCreateView(PermissionRequiredMixin, CreateView):
     model = Product
     form_class = ProductForm
     template_name = 'product/product_create.html'
+    permission_required = 'webapp.add_product'
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
+    def post(self, request, *args, **kwargs):
+        form = ProductForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return self.form_valid(form)
 
-class ProductUpdateView(UpdateView):
+        else:
+            return self.form_valid(form)
+
+
+class ProductUpdateView(PermissionRequiredMixin ,UpdateView):
     model = Product
     form_class = ProductForm
     template_name = 'product/product_update.html'
     context_object_name = 'product'
+    permission_required = 'webapp.change_product'
 
     def get_success_url(self):
         return reverse('webapp:product_view', kwargs={'pk': self.object.pk})
 
 
-class ProductDeleteView(DeleteView):
+class ProductDeleteView(PermissionRequiredMixin, DeleteView):
     model = Product
     template_name = 'product/product_delete.html'
+    permission_required = 'webapp.delete_product'
 
     def get_success_url(self):
-        return reverse_lazy('webapp:product_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:index')
+
 
 

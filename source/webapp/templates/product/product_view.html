@@ -4,16 +4,6 @@
 
 
 {% block menu %}
-{#    {% if perms.webapp.delete_product %}#}
-{#    <li class="nav-item active">#}
-{#        <a class="nav-link" href="{% url 'webapp:delete' product.pk %}">Удалить</a>#}
-{#    </li>#}
-{#    {% endif %}#}
-{#    {% if perms.webapp.change_product %}#}
-{#    <li class="nav-item active">#}
-{#        <a class="nav-link" href="{% url 'webapp:update' product.pk %}">Обновить</a>#}
-{#    </li>#}
-{#    {% endif %}#}
 {% endblock %}
 
 
@@ -40,7 +30,9 @@
 
     <h2 class="mt-4">Оценки товара</h2>
     <h2 >Средняя оценка: {{ avg }}</h2>
+    {% if request.user.is_authenticated %}
     <h5 class="mb-4"><a href="{% url 'webapp:add_review' product.pk %}">Добавить отзыв</a></h5>
+    {% endif %}
     {% for review in reviews %}
     <div class="review p-3 my-2">
         <h6 class="">Автор: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review.author }}</a> <br/>
@@ -52,6 +44,7 @@
         {% endif %}</h6>
         <p class="review-text pre">{{ review.text }}</p>
     <a href="{% url 'webapp:update_review' review.pk %}">Редактировать</a>
+    <a href="{% url 'webapp:delete_review' review.pk %}">Удалить</a>
     </div>
     {% endfor %}
 {% endblock %}

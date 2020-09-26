@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block title %}View{% endblock %}
+
+
+{% block content %}
+<div class="review p-3 my-2">
+        <h6 class="">Автор: <a href="{% url 'accounts:detail' review.author.pk %}">{{ review.author }}</a> <br/>
+        Оценка: {{ review.mark }} <br/>
+        {% if review.author.email %}
+        Email: {{ review.author.email }} <br/>
+        {% else %}
+        Email отсутсвует<br/>
+        {% endif %}</h6>
+        <p class="review-text pre">{{ review.text }}</p>
+    </div>
+
+    <form action="{% url "webapp:delete_review" review.pk %}" method="post">
+        {% csrf_token %}
+        <p><input type="submit" value="Да" id="submit" class="btn btn-warning mt-5 ml-5 btn-lg"></p>
+        <p><a class="btn btn-info ml-5 btn-lg" href="{% url 'webapp:product_view' review.product.pk %}">Нет</a></p>
+    </form>
+{% endblock %}

@@ -27,7 +27,7 @@ class Product(models.Model):
     category = models.CharField(max_length=30, choices=CATEGORY_CHOICES, null=False, blank=False,
                                 default=DEFAULT_CATEGORY, verbose_name='Категория')
     description = models.TextField(max_length=2000, null=True, blank=True, verbose_name='Описание')
-    image = models.ImageField(null=True, blank=True, upload_to='user_pics', verbose_name='Картинка')
+    image = models.ImageField(null=True, blank=True,  upload_to='user_pics', verbose_name='Картинка')
 
     class Meta:
         verbose_name_plural = 'Товары'
